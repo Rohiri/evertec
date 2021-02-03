@@ -15,7 +15,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">Navegacion Principal</li>
-                <li> <a href="{{ URL('/home' )}}" class="sub">
+                <li> <a href="{{ URL('/dashboard' )}}" class="sub">
                     <i class="fa fa-dashboard text-white"></i>
                          <span>Dashboard</span></a>
                 </li>
