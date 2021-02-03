@@ -100,10 +100,20 @@
 
       <div class="row no-print">
         <div class="col-xs-12">
-          <form method="GET" action="{{ route('order.payment', $order->id) }}" >
-            <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Pagar
-            </button>
-          </form>
+
+          @switch($order->status)
+            @case('CREATED')
+              <form method="GET" action="{{ route('order.payment', $order->id) }}" >
+                <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Pagar
+                </button>
+              </form>
+              @break
+            @case("PAYED")
+              <p class="text-green well well-sm no-shadow" style="margin-top: 10px;">
+                Esta Orden de Compra ya esta pagada.
+              </p>
+              @break
+          @endswitch
         </div>
       </div>
     </section>
