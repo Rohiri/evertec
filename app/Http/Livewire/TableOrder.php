@@ -31,14 +31,18 @@ class TableOrder extends Component
 	 */
     public function render()
     {
+        $busqueda = $this->search;
         return view('livewire.orders.table',[
-            'orders' => Order::where('customer_name', 'ILIKE',"%{$this->search}%")
-                ->orWhere('reference', 'ILIKE',"%{$this->search}%")
-                ->orWhere('customer_email', 'ILIKE',"%{$this->search}%")
-                ->orWhere('customer_mobile', 'ILIKE',"%{$this->search}%")
-                ->orWhere('quantity', 'ILIKE',"%{$this->search}%")
-                ->orWhere('total_price', 'ILIKE',"%{$this->search}%")
-                ->orWhere('status', 'ILIKE',"%{$this->search}%")
+            'orders' => Order::where('user_id', Auth::user()->id)
+                ->where(function($query) use ($busqueda){
+                    $query->where('customer_name','ILIKE',"%{$busqueda}%")
+                        ->orWhere('reference','ILIKE',"%{$busqueda}%")
+                        ->orWhere('customer_email','ILIKE',"%{$busqueda}%")
+                        ->orWhere('customer_mobile','ILIKE',"%{$busqueda}%")
+                        ->orWhere('quantity','ILIKE',"%{$busqueda}%")
+                        ->orWhere('total_price','ILIKE',"%{$busqueda}%")
+                        ->orWhere('status','ILIKE',"%{$busqueda}%");
+                })
                 ->orderBy('id','desc')
                 ->paginate(10),
         ])->extends('layouts.dashboard.dashboard');
