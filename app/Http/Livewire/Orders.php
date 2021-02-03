@@ -57,18 +57,6 @@ class Orders extends Component
     public $status;
 
     /**
-     * Propiedad para busqueda en datatable
-     * @var string
-     */
-	public $search = "";
-
-    /**
-     * Propiedad liveware para permitir queryString
-     * @var array
-     */
-	protected $queryString = ['search'];
-
-    /**
      * Reglas de Validacion
      * @var [type]
      */
@@ -84,11 +72,8 @@ class Orders extends Component
 	 */
     public function render()
     {
-        return view('livewire.orders.show',[
-            'orders' => Order::where('customer_email', 'ILIKE',"%{$this->search}%")
-                ->orderBy('id','desc')
-                ->paginate(10),
-        ])->extends('layouts.dashboard.dashboard');
+        return view('livewire.orders.show')
+            ->extends('layouts.dashboard.dashboard');
     }
 
     /**
