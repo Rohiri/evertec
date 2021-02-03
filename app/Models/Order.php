@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Helpers\Helper;
+use App\Models\Transaction;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -43,6 +44,18 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Metodo Para traerme la ultima transaccion
+     * de la orden
+     * @return [type] [description]
+     */
+    public function transaction()
+    {
+        return $this->hasOne(Transaction::class)
+            ->orderBy('created_at','desc')
+            ->take(1);
     }
 
     public function getTotalPriceFormatAttribute()

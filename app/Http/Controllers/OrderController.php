@@ -45,7 +45,18 @@ class OrderController extends Controller
      */
     public function pay(Order $order)
     {
-       
+        return redirect($this->getStrategy()->pay($order)->url);
+    }
+
+    /**
+     * Iniciar Transaccion de Pago
+     * @return [type] [description]
+     */
+    public function getPay($uuid)
+    {
+        $transaction = Transaction::where('transaction_id',$uuid)->first();
+
+        return $this->getStrategy()->getPay($transaction);
     }
 
     public function getStrategy()

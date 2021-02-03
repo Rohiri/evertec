@@ -72,17 +72,20 @@ class PlaceToPayGateway implements GatewayInterface
      */
     public function createTransaction(Order $order)
     {
-        $request   = $this->payload($order);
+        $transaction_id = Str::uuid();
+        $request   = $this->payload($order,$transaction_id);
         $response  = $this->placeToPay->request($request);
 
         if (!$response->isSuccessful()) {
-            throw new \Exception("Error en Transaccion ({$response->status()->message()}).");
+            throw new \Exception("Error en Transaccion: {$response->status()->message()}.");
         }
+
+
 
         //Guardarmos la informacion de la transaccion
         $this->transaction->create([
             'order_id' => $order->id,
-            'transaction_id' => Str::uuid(),
+            'transaction_id' => $transaction_id,
             'reference' => $order->reference,
             'redirect_url_payment' => $response->processUrl(),
             'request_id' => $response->requestId(),
@@ -97,7 +100,7 @@ class PlaceToPayGateway implements GatewayInterface
      * @param  Order  $order [description]
      * @return [type]        [description]
      */
-    private function payload(Order $order): array
+    private function payload(Order $order,$transaction_id): array
     {
         return [
             "locale" => "es_CO",
@@ -123,9 +126,15 @@ class PlaceToPayGateway implements GatewayInterface
             "ipAddress" => request()->ip(),
             "userAgent" => request()->header('user-agent'),
             "returnUrl" => env('APP_URL').'/my_orders',
+            "returnUrl" => route("notification", $transaction_id)
         ];
     }
 
+    /**
+     * Obtiene la informacion detallada de una transaccion de pago.
+     * @param  Transaction $transaction [description]
+     * @return [type]                   [description]
+     */
     public function getPay(Transaction $transaction)
     {
         $response = $this->placeToPay->query($transaction->request_id);
@@ -142,6 +151,10 @@ class PlaceToPayGateway implements GatewayInterface
         ]);
     }
 
+    /**
+     * Array para equivalencias de Estado
+     * @return [type] [description]
+     */
     public function statusEqual()
     {
         return [
