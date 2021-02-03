@@ -33,6 +33,7 @@ class TableOrder extends Component
     {
         return view('livewire.orders.table',[
             'orders' => Order::where('customer_name', 'ILIKE',"%{$this->search}%")
+                ->orWhere('reference', 'ILIKE',"%{$this->search}%")
                 ->orWhere('customer_email', 'ILIKE',"%{$this->search}%")
                 ->orWhere('customer_mobile', 'ILIKE',"%{$this->search}%")
                 ->orWhere('quantity', 'ILIKE',"%{$this->search}%")

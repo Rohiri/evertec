@@ -6,14 +6,11 @@ use App\Models\User;
 use App\Models\Order;
 use App\Helpers\Helper;
 use Livewire\Component;
-use Livewire\WithPagination;
 use Illuminate\Support\Facades\Auth;
 
 
 class Orders extends Component
 {
-	use WithPagination;
-
 	/**
      * Propiedad del Modelo para data binding
      * @var [type]
@@ -42,19 +39,19 @@ class Orders extends Component
      * Propiedad del Modelo para data binding
      * @var [type]
      */
-    public $price = 5000;
+    public $price;
+
+    /**
+     * Propiedad del Modelo para data binding
+     * @var [type]
+     */
+    public $product;
 
     /**
      * Propiedad del Modelo para data binding
      * @var [type]
      */
     public $total_price = 0;
-
-    /**
-     * Propiedad del Modelo para data binding
-     * @var [type]
-     */
-    public $status;
 
     /**
      * Reglas de Validacion
@@ -66,14 +63,19 @@ class Orders extends Component
         'customer_mobile' => 'required',
     ];
 
+    public function mount()
+    {
+        $this->price = config('evertec.product_price');
+        $this->product = config('evertec.product_name');
+    }
+
 	/**
 	 * Vista a renderizar
 	 * @return [type] [description]
 	 */
     public function render()
     {
-        return view('livewire.orders.show')
-            ->extends('layouts.dashboard.dashboard');
+        return view('livewire.orders.show')->extends('layouts.dashboard.dashboard');
     }
 
     /**
