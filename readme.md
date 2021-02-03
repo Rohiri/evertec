@@ -50,8 +50,8 @@ composer install
 
 Email|Password
  ------ | ------
-admin@evertec.com|password
-william@gmail.com|123456789|(Ninguno)| Tiene solo acceso a sus ordenes.
+admin@gmail.com|admin
+buyer@gmail.com|buyer
 
 ## Autor
 
