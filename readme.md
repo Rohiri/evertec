@@ -5,8 +5,8 @@ _Prueba de desarrollo para Evertec._
 ### Paquetes Terceros
 
 - AdminLTE
-
-
+- Liveware
+- dnetix/redirection
 
 ### Pre-requisitos
 
