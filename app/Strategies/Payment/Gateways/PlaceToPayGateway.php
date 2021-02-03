@@ -129,24 +129,29 @@ class PlaceToPayGateway implements GatewayInterface
     public function getPay(Transaction $transaction)
     {
         $response = $this->placeToPay->query($transaction->request_id);
-        return $response->status();
 
-        [
-            'FAILED'   => 'CREATED'
-            'APPROVED' => 'PAYED'
-            'REJECTED' => 'CREATED'
-            'PENDING'  => 'CREATED'
-            'PENDING_VALIDATION' => 'CREATED'
-            'REFUNDED' => 'CREATED'
-            'ERROR' => 'CREATED'
-        ]
+        $transaction->update([
+            'current_status' => $response->status()->status()
+        ]);
+        $transaction->order()->update([
+            'status' => $this->statusEqual()[$response->status()->status()]
+        ]);
 
-//         OK  Petición de autenticación procesada correctamente.
-// FAILED  Fallo en una petición de autenticación.
-// APPROVED    Petición de pago o suscripción terminada
-// REJECTED    Se ha declinado la transacción.
-// PENDING Transacción pendiente para la sesión, debe estar bloqueada hasta la resolución.
-// PENDING_VALIDATION  La sesión está pendiente de validación de identidad del usuario.
-// REFUNDED    Reintegro de una transacción por solicitud de un tarjetahabiente al comercio.
+        return collect([
+            'success' => true,
+        ]);
+    }
+
+    public function statusEqual()
+    {
+        return [
+            'FAILED'   => 'CREATED',
+            'APPROVED' => 'PAYED',
+            'REJECTED' => 'CREATED',
+            'PENDING'  => 'CREATED',
+            'PENDING_VALIDATION' => 'CREATED',
+            'REFUNDED' => 'CREATED',
+            'ERROR' => 'CREATED',
+        ];
     }
 }

@@ -26,4 +26,9 @@ class Transaction extends Model
         'request_id',
         'current_status',
     ];
+
+    public function order()
+    {
+        return $this->belongsTo('App\Models\Order');
+    }
 }
