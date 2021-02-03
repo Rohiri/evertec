@@ -5,13 +5,10 @@
             <div class="box-body box-profile">
               <img class="profile-user-img img-responsive img-circle" src="https://picsum.photos/128/128" alt="User profile picture">
 
-              <h3 class="profile-username text-center">Nevera</h3>
-
-              <p class="text-muted text-center">Haceb</p>
-
+              <h3 class="profile-username text-center">{{$product}}</h3>
               <ul class="list-group list-group-unbordered">
                 <li class="list-group-item">
-                  <b>Precio Unitario</b> <a class="pull-right">$5.000</a>
+                  <b>Precio Unitario</b> <a class="pull-right">{{$price}}</a>
                 </li>
                 <li class="list-group-item">
                   <b>Stock</b> <a class="pull-right">3456</a>

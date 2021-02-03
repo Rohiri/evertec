@@ -21,6 +21,7 @@
 		                    <tr>
 		                        <th>ID</th>
 		                        <th>Ver Orden</th>
+		                        <th>Referencia</th>
 		                        <th>Nombre</th>
 		                        <th>Email</th>
 		                        <th>Celular</th>
@@ -38,6 +39,7 @@
 		            			<td>
 		            				<a href="{{ URL::route('order.show',$order->id) }}" class="btn btn-primary fa fa-eye"></a>
 		            			</td>
+		            			<td>{{$order->reference}}</td>
 		            			<td>{{$order->customer_name}}</td>
 		            			<td>{{$order->customer_email}}</td>
 		            			<td>{{$order->customer_mobile}}</td>
@@ -52,6 +54,8 @@
 		                <tfoot>
 		                    <tr>
 		                        <th>ID</th>
+		                        <th>Ver Orden</th>
+		                        <th>Referencia</th>
 		                        <th>Nombre</th>
 		                        <th>Email</th>
 		                        <th>Celular</th>

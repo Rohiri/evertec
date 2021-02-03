@@ -33,7 +33,7 @@
         </div>
         <!-- /.col -->
         <div class="col-sm-4 invoice-col">
-          <b>Invoice #007612</b><br>
+          <b>Invoice #{{$order->reference}}</b><br>
           <br>
           <b>Order ID: </b> {{$order->id}}<br>
           <b>Fecha de Pago: </b> {{$date}}<br>
@@ -100,8 +100,10 @@
 
       <div class="row no-print">
         <div class="col-xs-12">
-          <button type="button" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Pagar
-          </button>
+          <form method="GET" action="{{ route('order.payment', $order->id) }}" >
+            <button type="submit" class="btn btn-success pull-right"><i class="fa fa-credit-card"></i> Pagar
+            </button>
+          </form>
         </div>
       </div>
     </section>
