@@ -1,58 +1,61 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Prueba de desarrollo.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+_Prueba de desarrollo para Evertec._
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
+### Pre-requisitos
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+_Ambiente requerido_
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
+- Php 7.3.0 con phpCli habilitado para la ejecución de comando.
+- Postgresql > 9.6
+- Composer
+- Extensión pdo_pgsql habilitada.
+- Node & npm
 
-## Learning Laravel
+### Instalación 🔧
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
+1. Clonar el repositorio en la carperta del servidor web.
 
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
+```sh
+git clone https://github.com/Rohiri/evertec.git
+```
 
-## Laravel Sponsors
+2. Instalar paquetes.
 
-We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
+```sh
+composer install
+```
+3. Copiar archivo  `.env.example` a  `.env`
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Pulse Storm](http://www.pulsestorm.net/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
+```sh
+`cp .env.example .env`
+```
 
-## Contributing
+4. Configure las variables de entorno
+- `DB_HOST="value"` Variable de entorno para el host de BD.
+- `DB_PORT="value"` Variable de entorno para el puerto de BD.
+- `DB_DATABASE="value"` Variable de entorno para el nombre de BD.
+- `DB_USERNAME="value"` Variable de entorno para el usuario de BD.
+- `DB_PASSWORD="value"` Variable de entorno para la contraseña de BD.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-## Security Vulnerabilities
+5. En la raíz del sitio ejecutar.
+- `php artisan key:generate` Genera la llave para el cifrado del proyecto.
+- `composer install` Instala dependencias de PHP
+- `npm install` Instala dependencias de javascript
+- `npm run dev` Genera la llave para el cifrado del proyecto.
+- `php artisan migrate:refresh --seed` Ejecuta migraciones y seeders
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+Email|Password
+ ------ | ------
+admin@evertec.com|password
+william@gmail.com|123456789|(Ninguno)| Tiene solo acceso a sus ordenes.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Autor
+
+**William Ricardo Torres Curtidor** [wiltorc2430@gmail.com](mailto:wiltorc2430@gmail.com)
+
+
+------------------------
