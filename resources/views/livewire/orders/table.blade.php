@@ -20,6 +20,7 @@
 		                <thead>
 		                    <tr>
 		                        <th>ID</th>
+		                        <th>Ver Orden</th>
 		                        <th>Nombre</th>
 		                        <th>Email</th>
 		                        <th>Celular</th>
@@ -34,6 +35,9 @@
 		                	@foreach($orders as $order)
 		            		<tr>
 		            			<td>{{$order->id}}</td>
+		            			<td>
+		            				<a href="{{ URL::route('order.show',$order->id) }}" class="btn btn-primary fa fa-eye"></a>
+		            			</td>
 		            			<td>{{$order->customer_name}}</td>
 		            			<td>{{$order->customer_email}}</td>
 		            			<td>{{$order->customer_mobile}}</td>

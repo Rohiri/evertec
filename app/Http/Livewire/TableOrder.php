@@ -13,30 +13,6 @@ class TableOrder extends Component
 {
 	use WithPagination;
 
-	/**
-     * Propiedad del Modelo para data binding
-     * @var [type]
-     */
-	public $customer_name;
-
-    /**
-     * Propiedad del Modelo para data binding
-     * @var [type]
-     */
-    public $customer_email;
-
-    /**
-     * Propiedad del Modelo para data binding
-     * @var [type]
-     */
-    public $customer_mobile;
-
-    /**
-     * Propiedad del Modelo para data binding
-     * @var [type]
-     */
-    public $status;
-
     /**
      * Propiedad para busqueda en datatable
      * @var string
@@ -56,7 +32,12 @@ class TableOrder extends Component
     public function render()
     {
         return view('livewire.orders.table',[
-            'orders' => Order::where('customer_email', 'ILIKE',"%{$this->search}%")
+            'orders' => Order::where('customer_name', 'ILIKE',"%{$this->search}%")
+                ->orWhere('customer_email', 'ILIKE',"%{$this->search}%")
+                ->orWhere('customer_mobile', 'ILIKE',"%{$this->search}%")
+                ->orWhere('quantity', 'ILIKE',"%{$this->search}%")
+                ->orWhere('total_price', 'ILIKE',"%{$this->search}%")
+                ->orWhere('status', 'ILIKE',"%{$this->search}%")
                 ->orderBy('id','desc')
                 ->paginate(10),
         ])->extends('layouts.dashboard.dashboard');
