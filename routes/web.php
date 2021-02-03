@@ -36,5 +36,7 @@ Route::group(['middleware' => ['web', 'auth']], function () {
     Route::get('/order', [\App\Http\Livewire\Orders::class, '__invoke'])->name('orders');
     Route::get('/my_orders', [\App\Http\Livewire\TableOrder::class, '__invoke'])->name('my-orders');
     Route::get('/order/{order}', 'OrderController@show')->name('order.show');
+    Route::get('/order/payment/{order}', 'OrderController@pay')->name('order.payment');
 
 });
+
