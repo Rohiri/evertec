@@ -73,14 +73,12 @@ class PlaceToPayGateway implements GatewayInterface
     public function createTransaction(Order $order)
     {
         $transaction_id = Str::uuid();
-        $request   = $this->payload($order,$transaction_id);
+        $request   = $this->payload($order, $transaction_id);
         $response  = $this->placeToPay->request($request);
 
         if (!$response->isSuccessful()) {
             throw new \Exception("Error en Transaccion: {$response->status()->message()}.");
         }
-
-
 
         //Guardarmos la informacion de la transaccion
         $this->transaction->create([
@@ -96,11 +94,14 @@ class PlaceToPayGateway implements GatewayInterface
     }
 
     /**
-     * Payload del Pago
-     * @param  Order  $order [description]
-     * @return [type]        [description]
+     * Create Payload Transaction
+     *
+     * @param Order $order Order Object
+     * @param [type] $transaction_id ID Transacction
+     *
+     * @return array
      */
-    private function payload(Order $order,$transaction_id): array
+    private function payload(Order $order, $transaction_id): array
     {
         return [
             "locale" => "es_CO",
