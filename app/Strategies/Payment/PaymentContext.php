@@ -15,7 +15,7 @@ final class PaymentContext
     /**
      * Gateways availables
      */
-    const STRATEGY = [
+    public const STRATEGY = [
         'place_to_pay' => PlaceToPayGateway::class,
         'william_pay' => WilliamGateway::class,
     ];

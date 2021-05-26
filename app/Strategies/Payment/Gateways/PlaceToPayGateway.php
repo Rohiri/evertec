@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Strategies\Payment\Gateways;
 
 use App\Models\Order;
@@ -14,18 +15,23 @@ class PlaceToPayGateway implements GatewayInterface
 {
     /**
      * [$transaction description]
+     *
      * @var [type]
      */
     public $transaction;
 
     /**
      * [$placeToPay description]
+     *
      * @var [type]
      */
     public $placeToPay;
 
     /**
-     * Constructor de metodo de pago.
+     * Constructor
+     *
+     * @param PlaceToPay  $placeToPay  Place_to_pay
+     * @param Transaction $transaction Transaction
      */
     public function __construct(PlaceToPay $placeToPay, Transaction $transaction)
     {
@@ -35,7 +41,9 @@ class PlaceToPayGateway implements GatewayInterface
 
     /**
      * Inicio de la transaccion place to pay
-     * @param  Order  $order [description]
+     *
+     * @param Order $order [description]
+     *
      * @return [type]        [description]
      */
     public function pay(Order $order)
@@ -67,7 +75,9 @@ class PlaceToPayGateway implements GatewayInterface
 
     /**
      * Crea los datos de la transaccion
-     * @param  Order  $order [description]
+     *
+     * @param Order $order [description]
+     *
      * @return [type]        [description]
      */
     public function createTransaction(Order $order)
@@ -81,14 +91,14 @@ class PlaceToPayGateway implements GatewayInterface
         }
 
         //Guardarmos la informacion de la transaccion
-        $this->transaction->create([
-            'order_id' => $order->id,
+        $this->transaction->create(
+            ['order_id' => $order->id,
             'transaction_id' => $transaction_id,
             'reference' => $order->reference,
             'redirect_url_payment' => $response->processUrl(),
             'request_id' => $response->requestId(),
-            'current_status' => 'CREATED',
-        ]);
+            'current_status' => 'CREATED']
+        );
 
         return $response;
     }
@@ -96,8 +106,8 @@ class PlaceToPayGateway implements GatewayInterface
     /**
      * Create Payload Transaction
      *
-     * @param Order $order Order Object
-     * @param [type] $transaction_id ID Transacction
+     * @param Order  $order          [description]
+     * @param string $transaction_id ID Transacction
      *
      * @return array
      */
@@ -112,7 +122,7 @@ class PlaceToPayGateway implements GatewayInterface
             ],
             "payment" => [
                 "reference" => $order->reference,
-                "description" => "Compra de (".$order->quantity.") Productos",
+                "description" => "Compra de (" . $order->quantity . ") Productos",
                 "amount" => [
                     "currency" => "COP",
                     "total" => $order->total_price,
@@ -126,34 +136,36 @@ class PlaceToPayGateway implements GatewayInterface
             "expiration" => \Carbon\Carbon::now()->addMinutes(25)->format("c"),
             "ipAddress" => request()->ip(),
             "userAgent" => request()->header('user-agent'),
-            "returnUrl" => env('APP_URL').'/my_orders',
+            "returnUrl" => env('APP_URL') . '/my_orders',
             "returnUrl" => route("notification", $transaction_id)
         ];
     }
 
     /**
      * Obtiene la informacion detallada de una transaccion de pago.
-     * @param  Transaction $transaction [description]
+     *
+     * @param Transaction $transaction [description]
+     *
      * @return [type]                   [description]
      */
     public function getPay(Transaction $transaction)
     {
         $response = $this->placeToPay->query($transaction->request_id);
 
-        $transaction->update([
-            'current_status' => $response->status()->status()
-        ]);
-        $transaction->order()->update([
-            'status' => $this->statusEqual()[$response->status()->status()]
-        ]);
+        $transaction->update(
+            ['current_status' => $response->status()->status()]
+        );
 
-        return collect([
-            'success' => true,
-        ]);
+        $transaction->order()->update(
+            ['status' => $this->statusEqual()[$response->status()->status()]]
+        );
+
+        return collect(['success' => true]);
     }
 
     /**
      * Array para equivalencias de Estado
+     *
      * @return [type] [description]
      */
     public function statusEqual()
